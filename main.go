@@ -53,7 +53,7 @@ func readConfig() config {
 
 func readArgs() (string, string) {
 	if len(os.Args) != 3 {
-		fmt.Printf("trainview_push <trainNum> <trainTime>")
+		fmt.Println("trainview_push <trainNum> <trainTime>")
 		os.Exit(1)
 	}
 
