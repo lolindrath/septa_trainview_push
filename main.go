@@ -82,7 +82,7 @@ func getTrains() []train {
 }
 
 func findTrain(trainNum string, trains []train) train {
-	var ourTrain train
+	ourTrain := train{Late: -1}
 
 	for _, t := range trains {
 		if t.Number == trainNum {
@@ -118,13 +118,17 @@ func main() {
 	ourTrain := findTrain(trainNum, trains)
 
 	var late string
-	if ourTrain.Late == 0 {
+	if ourTrain.Late == -1 {
+		late = "not found"
+	} else if ourTrain.Late == 0 {
 		late = "on time"
+	} else if ourTrain.Late == 1 {
+		late = fmt.Sprintf("%d min late", ourTrain.Late)
 	} else {
-		late = fmt.Sprintf("%d mins late", ourTrain.Late)
+		late = fmt.Sprintf("%d min late", ourTrain.Late)
 	}
 
-	msg := fmt.Sprintf("%s Warminster(%s) is %s", time, trainNum, late)
+	msg := fmt.Sprintf("%s %s -> %s (%s) is %s", time, ourTrain.Source, ourTrain.Dest, trainNum, late)
 
 	sendPushover(msg)
 
